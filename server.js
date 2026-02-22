@@ -8,16 +8,16 @@ const PORT = process.env.PORT || 10000;
 const MAP_WIDTH = 40;
 const MAP_HEIGHT = 30;
 
-// プレイヤー情報（IDごとに管理）
+// プレイヤー情報
 let players = {}; // { id: {x, y, weapon, color} }
 
 // guest0001 AI
 let guest0001 = { x: 5, y: 5, color: "#00ffff", weapon: "shooter" };
 
-// WebSocketサーバーを作る
+// WebSocketサーバー
 const wss = new WebSocket.Server({ port: PORT });
 
-// 全員にデータを送る関数
+// 全員にデータ送信
 function broadcast(data) {
   const msg = JSON.stringify(data);
   wss.clients.forEach(client => {
@@ -25,18 +25,27 @@ function broadcast(data) {
   });
 }
 
-// guest0001 の自動移動（プレイヤーを追いかける）
+// guest0001 の自作AI
 function moveGuest() {
   const playerList = Object.values(players);
   if (playerList.length === 0) return;
-  const target = playerList[0];
+  const target = playerList[0]; // 一番最初のプレイヤーを狙う
+
+  // X軸移動
   if (guest0001.x < target.x) guest0001.x++;
   else if (guest0001.x > target.x) guest0001.x--;
+
+  // Y軸移動
   if (guest0001.y < target.y) guest0001.y++;
   else if (guest0001.y > target.y) guest0001.y--;
+
+  // 近くにいれば攻撃（簡易）
+  if (Math.abs(guest0001.x - target.x) <= 1 && Math.abs(guest0001.y - target.y) <= 1) {
+    console.log("guest0001 attacks!");
+  }
 }
 
-// 0.1秒ごとに状態を更新
+// 0.1秒ごとに状態更新
 setInterval(() => {
   moveGuest();
   broadcast({ type: "update", players, guest0001 });
@@ -47,10 +56,10 @@ wss.on("connection", ws => {
   const id = Date.now() + Math.random();
   players[id] = { x: 1, y: 1, weapon: "shooter", color: "#ff0000" };
 
-  // 初期情報を送信
+  // 初期情報送信
   ws.send(JSON.stringify({ type: "init", id, MAP_WIDTH, MAP_HEIGHT, guest0001 }));
 
-  // プレイヤーからのメッセージ受信
+  // メッセージ受信
   ws.on("message", message => {
     try {
       const data = JSON.parse(message);
