@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 let camera = { x:0, y:0 };
 let joystickDirection = { dx:0, dy:0 };
 
-const socket = new WebSocket("wss://[RenderサーバーURL]");
+const socket = new WebSocket("wss://ink-gun.onrender.com");
 
 let playerId;
 let MAP_WIDTH, MAP_HEIGHT;
