@@ -1,25 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>ナワバリバトル ジョイスティック版</title>
-<style>
-  body { margin:0; overflow:hidden; background:#eee; touch-action:none; }
-  canvas { display:block; background:#fff; }
-  #controls { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); }
-  button { font-size:18px; margin:2px; }
-  #joystick { position:fixed; bottom:80px; left:20px; width:150px; height:150px; }
-</style>
+  <meta charset="UTF-8">
+  <title>Ink Gun Battle</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.9.0/nipplejs.min.js"></script>
+  <script src="client.js" defer></script>
 </head>
 <body>
-<canvas id="gameCanvas" width="800" height="600"></canvas>
-<div id="controls">
-  <button id="weapon">武器変更</button>
-</div>
-<div id="joystick"></div>
-
-<!-- nipplejs ライブラリ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.9.0/nipplejs.min.js"></script>
-<script src="client.js"></script>
+  <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <div id="joystick" style="position:fixed; left:0; bottom:0;"></div>
+  <button id="weapon" style="position:fixed; right:20px; bottom:20px;">ローラー切替</button>
 </body>
 </html>
