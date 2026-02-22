@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ナワバリバトル ジョイスティック版</title>
+<style>
+  body { margin:0; overflow:hidden; background:#eee; touch-action:none; }
+  canvas { display:block; background:#fff; }
+  #controls { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); }
+  button { font-size:18px; margin:2px; }
+  #joystick { position:fixed; bottom:80px; left:20px; width:150px; height:150px; }
+</style>
+</head>
+<body>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<div id="controls">
+  <button id="weapon">武器変更</button>
+</div>
+<div id="joystick"></div>
+
+<!-- nipplejs ライブラリ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.9.0/nipplejs.min.js"></script>
+<script src="client.js"></script>
+</body>
+</html>
