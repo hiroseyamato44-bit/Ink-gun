@@ -4,7 +4,7 @@ const WebSocket = require('ws');
 const server = http.createServer();
 const wss = new WebSocket.Server({ server });
 
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 0.0.0.0;
 
 let players = {};
 let guest0001 = { x: 5, y: 5, color: "purple", weapon: "shooter" };
